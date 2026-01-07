@@ -1,3 +1,16 @@
+// ▄▄▄▄  ▄▄ ▄▄                         
+// ██▄██ ▀███▀                         
+// ██▄█▀   █                                                                                                                              
+//   ▄▄  ▄▄▄  ▄▄ ▄▄ ▄▄▄▄▄              
+//   ██ ██▀██ ██▄█▀ ██▄▄               
+// ▄▄█▀ ██▀██ ██ ██ ██▄▄▄                                                                                                                    
+// ▄▄   ▄▄ ▄▄▄▄▄ ▄▄     ▄▄▄▄ ▄▄ ▄▄     
+// ██ ▄ ██ ██▄▄  ██    ██▀▀▀ ██▄██     
+//  ▀█▀█▀  ██▄▄▄ ██▄▄▄ ▀████ ██ ██                                                                                                           
+//   ▄▄▄▄  ▄▄▄▄▄  ▄▄▄▄ ▄▄  ▄▄▄▄ ▄▄  ▄▄ 
+//   ██▀██ ██▄▄  ███▄▄ ██ ██ ▄▄ ███▄██ 
+// ▄ ████▀ ██▄▄▄ ▄▄██▀ ██ ▀███▀ ██ ▀██ 
+
 precision mediump float;
 
 varying vec2 pos;
@@ -7,7 +20,7 @@ uniform sampler2D uTexture;
 uniform vec2 uResolution;
 uniform vec2 uImageResolution;
 
-// === TWEAKABLE SETTINGS ===
+// SETTINGS
 const float GRID_SIZE = 8.0;           // Number of diamond tiles
 const float MOUSE_INFLUENCE = 0.02;    // How much mouse moves the image
 const float BULGE_AMOUNT = 0.8;        // 0 = flat, 1 = full hemisphere
@@ -20,7 +33,7 @@ const float BLOOM_STRENGTH = 1.;      // Bloom intensity
 const float GLARE_STRENGTH = 1.;      // Glare streak intensity
 const float EDGE_THICKNESS = 0.02;     // Thickness of diamond boundaries (0.01-0.1)
 
-// Pillow/inflated bulge distortion
+// Pillow distortion
 vec2 pillowDistort(vec2 p, float bulgeAmount) {
     float r = length(p);
     float maxR = 1.414;
