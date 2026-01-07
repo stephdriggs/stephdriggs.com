@@ -24,7 +24,7 @@ async function setup() {
 
   const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
 
-  canvasWidth = isMobile ? 300 : 500;
+  canvasWidth = isMobile ? Math.min(window.innerWidth - 40, 500) : 500;
 
   const aspectRatio = img.width / img.height; 
   canvasHeight = canvasWidth / aspectRatio;
@@ -55,7 +55,7 @@ function draw() {
 
 function windowResized() {
   const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
-  canvasWidth = isMobile ? 300 : 500;
+  canvasWidth = isMobile ? Math.min(window.innerWidth - 40, 500) : 500;
 
   const aspectRatio = img.width / img.height;
   canvasHeight = canvasWidth / aspectRatio;
