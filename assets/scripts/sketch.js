@@ -21,17 +21,13 @@ let touchY = 0;
 let isDragging = false;
 
 async function setup() {
-  // Load image first to get dimensions
   img = await loadImage('./assets/images/coming-soon.png');
 
-  // Better mobile detection
   const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
 
-  // Set canvas width based on device
   canvasWidth = isMobile ? 300 : 500;
 
-  // Calculate height based on image aspect ratio to maintain proportions
-  const aspectRatio = img.width / img.height; // Note: width/height for correct aspect
+  const aspectRatio = img.width / img.height; 
   canvasHeight = canvasWidth / aspectRatio;
 
   createCanvas(canvasWidth, canvasHeight, WEBGL);
@@ -65,7 +61,6 @@ function draw() {
 }
 
 function windowResized() {
-  // Recalculate dimensions on resize (useful for mobile orientation changes)
   const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
   canvasWidth = isMobile ? 300 : 500;
 
@@ -75,12 +70,11 @@ function windowResized() {
   resizeCanvas(canvasWidth, canvasHeight);
 }
 
-// Touch event handlers for mobile drag interaction
 function touchStarted() {
   isDragging = true;
-  touchX = mouseX; // p5.js mouseX works for touch too
+  touchX = mouseX; 
   touchY = mouseY;
-  return false; // Prevent default behavior
+  return false; 
 }
 
 function touchMoved() {
@@ -88,7 +82,7 @@ function touchMoved() {
     touchX = mouseX;
     touchY = mouseY;
   }
-  return false; // Prevent scrolling
+  return false;
 }
 
 function touchEnded() {
