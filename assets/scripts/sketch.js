@@ -16,9 +16,8 @@ let img;
 let exampleShader;
 let canvasWidth;
 let canvasHeight;
-let touchX = 0;
-let touchY = 0;
-let isDragging = false;
+let lastX = 0;
+let lastY = 0;
 
 async function setup() {
   img = await loadImage('./assets/images/coming-soon.png');
@@ -34,22 +33,16 @@ async function setup() {
   exampleShader = await loadShader('./assets/scripts/reefer.vert', 'assets/scripts/reefer.frag');
   shader(exampleShader);
   noStroke();
+  
+  // Initialize to center
+  lastX = canvasWidth / 2;
+  lastY = canvasHeight / 2;
 }
 
 function draw() {
-  // Handle input based on device type
-  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
-  let mx, my;
-
-  if (isMobile) {
-    // Use touch/drag position on mobile
-    mx = (touchX / canvasWidth) * 2.0 - 1.0;
-    my = (touchY / canvasHeight) * 2.0 - 1.0;
-  } else {
-    // Use mouse position on desktop (already centered)
-    mx = (mouseX / canvasWidth) * 2.0 - 1.0;
-    my = (mouseY / canvasHeight) * 2.0 - 1.0;
-  }
+  // Use lastX/lastY which is updated by both mouse and touch
+  let mx = (lastX / canvasWidth) * 2.0 - 1.0;
+  let my = (lastY / canvasHeight) * 2.0 - 1.0;
 
   exampleShader.setUniform('millis', millis());
   exampleShader.setUniform('uMouse', [mx, my]);
@@ -70,22 +63,34 @@ function windowResized() {
   resizeCanvas(canvasWidth, canvasHeight);
 }
 
+// Mouse movement handler (desktop)
+function mouseMoved() {
+  lastX = mouseX;
+  lastY = mouseY;
+}
+
+function mouseDragged() {
+  lastX = mouseX;
+  lastY = mouseY;
+}
+
+// Touch handlers (mobile)
 function touchStarted() {
-  isDragging = true;
-  touchX = mouseX; 
-  touchY = mouseY;
-  return false; 
+  if (touches.length > 0) {
+    lastX = touches[0].x;
+    lastY = touches[0].y;
+  }
+  return false; // Prevent default
 }
 
 function touchMoved() {
-  if (isDragging) {
-    touchX = mouseX;
-    touchY = mouseY;
+  if (touches.length > 0) {
+    lastX = touches[0].x;
+    lastY = touches[0].y;
   }
-  return false;
+  return false; // Prevent scrolling
 }
 
 function touchEnded() {
-  isDragging = false;
   return false;
 }
