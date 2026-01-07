@@ -2,7 +2,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
+  /* Disable scrolling on all devices */
   background: #000;
   height: 100vh;
   display: flex;
